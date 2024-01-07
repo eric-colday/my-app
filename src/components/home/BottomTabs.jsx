@@ -30,7 +30,7 @@ const BootomTabs = () => {
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Icon icon="user" text="Account" />
       </TouchableOpacity>
-    </View>
+    </View> 
   );
 };
 

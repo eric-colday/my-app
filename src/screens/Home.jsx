@@ -26,27 +26,24 @@ const YELP_API_KEY =
 
 const Home = ({ navigation }) => {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
-  const [products, setProducts] = useState([]);
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState("Strasbourg");
   const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = async () => {
     const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
-
     const apiOptions = {
       headers: {
         Authorization: `Bearer ${YELP_API_KEY}`,
-        accept: application / json,
       },
     };
-
-    const res = await fetch(yelpUrl, apiOptions);
-    const json = await res.json();
-    return setRestaurantData(
-      json.businesses.filter((business) =>
-        business.transactions.includes(activeTab.toLowerCase())
-      )
-    );
+    axios
+      .get(yelpUrl, apiOptions)
+      .then((response) => {
+        setRestaurantData(response.data.businesses)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
